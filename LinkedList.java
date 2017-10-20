@@ -16,7 +16,6 @@ public class LinkedList
 	public void addElement(ListElement le)
 	{
 		ListElement element = new ListElement();
-		size++;
 		
 		if (head == null)
 		{
@@ -27,9 +26,12 @@ public class LinkedList
 		else
 		{
 			tail.setNext(element);
+			element.setPrev(tail);
 			tail = element;
-			tail.setData(le.getData());
+			tail.setData(le.getData()); 
 		}
+		
+		size++;
 	}
 	
 	public ListElement getElement(int index)
@@ -64,23 +66,21 @@ public class LinkedList
 	
 	public void printLinkedListTail()
 	{
-		Stack element = new Stack();
-		
-		ListElement current = head;
+		ListElement current = tail;
 		if (size == 0)
 			System.out.println("List is empty");
-		for (int i = 0; i < size; i++)
+		else
 		{
-			element.push(current.getData());
-			current = current.getNext();
+			for(int i = 0; i < size; i++)
+			{
+				if ((i+1) != size)
+					System.out.print(current.getData() + "<-");
+				else
+					System.out.print(current.getData());
+				current = current.getPrev();
+			}
+			System.out.println();
 		}
-		
-		while (!element.empty())
-		{	
-			System.out.print(element.pop());
-			System.out.print("->");
-		}		
-		System.out.println();
 	}
 	
 	public void printLinkedListHead()
